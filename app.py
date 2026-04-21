@@ -4,7 +4,6 @@ from sklearn.tree import DecisionTreeClassifier
 
 app = FastAPI()
 
-# Load dataset and train model
 iris = load_iris()
 X, y = iris.data, iris.target
 
@@ -26,9 +25,7 @@ def health():
 
 @app.get("/predict")
 def predict(sl: float, sw: float, pl: float, pw: float):
-    features = [[sl, sw, pl, pw]]
-    prediction = model.predict(features)[0]
-
+    prediction = model.predict([[sl, sw, pl, pw]])[0]
     return {
         "prediction": int(prediction),
         "class_name": class_names[prediction]
